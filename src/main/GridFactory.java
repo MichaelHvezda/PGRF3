@@ -38,6 +38,11 @@ public class GridFactory {
             }
         }
 
+        for (int iiisjd:ib
+        ) {
+            System.out.println(iiisjd);
+        }
+
         OGLBuffers.Attrib[] attributes = {
              new OGLBuffers.Attrib("inPosition", 2) // 2 floats per vertex
         };
@@ -57,22 +62,46 @@ public class GridFactory {
                 vb[index++] = y;
             }
         }
-
-        int[] ib = new int[(a - 1) * (b - 1) * 2 * 3];
+        // počet bodů + duplicitni body v generovaném troj + body uvnitř mříšky které jsou duplicitní + (-1) jelikoz by mel vzniknout bod s degen troj ale nevznika
+        int pocet = (a) * (b) + (b-1) + (a-1) * (b-1)-1;
+        System.out.println("pocet " +pocet);
+        int[] ib = new int[pocet];
         int index2 = 0;
 
-        for (int r = 0; r < b - 1; r++) {
+        for (int r = 0; r < b-1; r++) {
             int offset = r * a;
-            for (int c = 0; c < a - 1; c++) {
-                ib[index2++] = offset + c;
-                ib[index2++] = offset + c + 1;
-                ib[index2++] = offset + c + a;
-                ib[index2++] = offset + c + 1;
-                ib[index2++] = offset + c + 1 + a;
-                ib[index2++] = offset + c + a;
+            if(r%2==0){
+                for (int c = 0; c < a; c++) {
+                    ib[index2++] = offset + c;
+                    ib[index2++] = offset + c + a;
+
+                    //generovany troj
+                    if( c==a-1){
+                        ib[index2++] = offset + c + a;
+                    }
+
+                }
+            }else{
+                for (int c = a-1; c >= 0; c--) {
+
+                    ib[index2++] = offset + c ;
+                    ib[index2++] = offset + c + a;
+
+                    //generovany troj
+                    if( c==0){
+                        ib[index2++] = offset + c + a;
+                    }
+                }
             }
         }
 
+
+        for (int iiisjd:ib
+             ) {
+            System.out.println(iiisjd);
+        }
+
+        System.out.println("54 "+ index2);
         OGLBuffers.Attrib[] attributes = {
                 new OGLBuffers.Attrib("inPosition", 2) // 2 floats per vertex
         };

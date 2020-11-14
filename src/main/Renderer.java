@@ -13,11 +13,12 @@ import static org.lwjgl.opengl.GL30.*;
 
 public class Renderer extends AbstractRenderer {
 
-    private int shaderProgram1, shaderProgram2;
+    private int shaderProgram1, shaderProgram2, shaderProgramGrid;
     private OGLBuffers buffers;
 
     private int locView, locProjection, locTemp, locLightPos;
     private int locView2, locProjection2;
+    private int locViewGrid, locProjectionGrid;
 
     private Camera camera;
     private Camera cameraLight;
@@ -38,6 +39,7 @@ public class Renderer extends AbstractRenderer {
 
         shaderProgram1 = ShaderUtils.loadProgram("/start");
         shaderProgram2 = ShaderUtils.loadProgram("/postProc");
+        shaderProgramGrid = ShaderUtils.loadProgram("/grid");
 
         locLightPos = glGetUniformLocation(shaderProgram1, "lightPos");
         locView = glGetUniformLocation(shaderProgram1, "view");
@@ -46,9 +48,13 @@ public class Renderer extends AbstractRenderer {
 
         locView2 = glGetUniformLocation(shaderProgram2, "view");
         locProjection2 = glGetUniformLocation(shaderProgram2, "projection");
-
-        buffers = GridFactory.generateGrid(200, 200);
-
+        locViewGrid = glGetUniformLocation(shaderProgramGrid, "view");
+        locProjectionGrid = glGetUniformLocation(shaderProgramGrid, "projection");
+//*
+        buffers = GridFactory.generateGridStrip(100, 100);
+/*/
+        buffers = GridFactory.generateGrid(4,4);
+        //*/
 //        camera = new Camera(
 //                new Vec3D(6, 6, 5),
 //                5 / 4f * Math.PI,
@@ -57,7 +63,7 @@ public class Renderer extends AbstractRenderer {
 //                true
 //        );
         camera = new Camera()
-                .withPosition(new Vec3D(2, 2, 2)) // pozice pozorovatele
+                .withPosition(new Vec3D(6, 6, 5)) // pozice pozorovatele
                 .withAzimuth(5 / 4f * Math.PI) // otočení do strany o (180+45) stupňů v radiánech
                 .withZenith(-1 / 5f * Math.PI); // otočení (90/5) stupňů dolů
 
@@ -86,13 +92,14 @@ public class Renderer extends AbstractRenderer {
     @Override
     public void display() {
         glEnable(GL_DEPTH_TEST);
-        render1();
-        render2();
-        //dkoks
-        viewer.view(texture1, -1, -1, 0.5);
-        viewer.view(renderTarget.getColorTexture(), -1, -0.5, 0.5);
+        //render1();
+        //render2();
 
-        textRenderer.addStr2D(LwjglWindow.WIDTH - 90, LwjglWindow.HEIGHT - 3, "PGRF");
+        gridRender();
+        //viewer.view(texture1, -1, -1, 0.5);
+        //viewer.view(renderTarget.getColorTexture(), -1, -0.5, 0.5);
+
+        textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
     }
 
     private void render1() {
@@ -109,7 +116,7 @@ public class Renderer extends AbstractRenderer {
         texture1.bind(shaderProgram1, "texture1", 0);
 
         glUniform1f(locTemp, 1.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgram1);
+        buffers.draw(GL_TRIANGLE_STRIP, shaderProgram1);
         //buffers.draw(GL_TRIANGLE_STRIP,shaderProgram1);
     }
 
@@ -125,10 +132,46 @@ public class Renderer extends AbstractRenderer {
         glUniformMatrix4fv(locView2, false, camera.getViewMatrix().floatArray());
         glUniformMatrix4fv(locProjection2, false, projection.floatArray());
 
-//        texture1.bind(shaderProgram2, "texture1", 0);
-        renderTarget.getColorTexture().bind(shaderProgram2, "texture1", 0);
+        texture1.bind(shaderProgram2, "texture1", 0);
+        //renderTarget.getColorTexture().bind(shaderProgram2, "texture1", 0);
 
         buffers.draw(GL_TRIANGLES, shaderProgram2);
+    }
+    private void gridRender(){
+        glUseProgram(shaderProgramGrid);
+
+        //renderTarget.bind();
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        glClearColor(0, .1f, 0, 1);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glViewport(0, 0, LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
+
+
+        //glUniform3fv(locLightPos, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniformMatrix4fv(locViewGrid, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionGrid, false, projection.floatArray());
+
+        texture1.bind(shaderProgramGrid, "texture1", 0);
+        buffers.draw(GL_TRIANGLE_STRIP, shaderProgramGrid);
+    }
+
+    private void gridRender2(){
+        glUseProgram(shaderProgramGrid);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        glViewport(0, 0, 800, 600);
+
+
+        //glUniform3fv(locLightPos, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniformMatrix4fv(locView2, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjection2, false, projection.floatArray());
+
+        //texture1.bind(shaderProgramGrid, "texture1", 0);
+        buffers.draw(GL_TRIANGLES, shaderProgramGrid);
     }
 
 //    @Override
