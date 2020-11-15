@@ -11,12 +11,13 @@ out vec3 viewDirection;
 out vec3 normal;
 
 void main() {
-    gl_Position = projection * view * vec4(inPosition*0.01, 1.0);
+
     //vertColor = inNormal * 0.5 + 0.5;
     vertColor = vec3(inTexCoord ,inTexCoord.x);
     normal = inNormal;
-    light = lightPos - (view * vec4(inPosition,1.0)).xyz;
-    viewDirection = -(view * vec4(inPosition,1.0)).xyz;
+    light = lightPos - (view * vec4(-inPosition*0.1,1.0)).xyz;
+    viewDirection = -(view * vec4(-inPosition*0.1,1.0)).xyz;
+    gl_Position = projection * view * vec4(-inPosition*0.1, 1.0);
  //   outTexCoord =inTexCoord;
     //vertColor = inPosition*0.01;
 }

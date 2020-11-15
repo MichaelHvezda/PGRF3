@@ -16,10 +16,12 @@ public class Renderer extends AbstractRenderer {
     private int shaderProgram1, shaderProgram2, shaderProgramGrid , shaderProgramElephant;
     private OGLBuffers buffers,buffersElephant;
 
+    private double otoceni =0;
     private int locView, locProjection, locTemp, locLightPos;
     private int locView2, locProjection2;
     private int locViewGrid, locProjectionGrid;
-    private int locViewElephant, locProjectionElephant ,locLightPosElephant;
+    private int locViewElephant, locProjectionElephant ,locLightPosElephant,shaderProgramElephantSun;
+    private int locViewElephantSun, locProjectionElephantSun ,locLightPosElephantSun;
 
     private Camera camera;
     private Camera cameraLight;
@@ -43,6 +45,7 @@ public class Renderer extends AbstractRenderer {
         shaderProgram2 = ShaderUtils.loadProgram("/postProc");
         shaderProgramGrid = ShaderUtils.loadProgram("/grid");
         shaderProgramElephant = ShaderUtils.loadProgram("/elephant");
+        shaderProgramElephantSun = ShaderUtils.loadProgram("/elephantSun");
 
         locLightPos = glGetUniformLocation(shaderProgram1, "lightPos");
         locView = glGetUniformLocation(shaderProgram1, "view");
@@ -57,6 +60,12 @@ public class Renderer extends AbstractRenderer {
         locViewElephant = glGetUniformLocation(shaderProgramElephant, "view");
         locProjectionElephant = glGetUniformLocation(shaderProgramElephant, "projection");
         locLightPosElephant = glGetUniformLocation(shaderProgramElephant, "lightPos");
+
+        locViewElephantSun = glGetUniformLocation(shaderProgramElephantSun, "view");
+        locProjectionElephantSun = glGetUniformLocation(shaderProgramElephantSun, "projection");
+        locLightPosElephantSun = glGetUniformLocation(shaderProgramElephantSun, "lightPos");
+
+
         modelElephant = new OGLModelOBJ("/obj/ElephantBody.obj");
         buffersElephant = modelElephant.getBuffers();
 
@@ -77,7 +86,7 @@ public class Renderer extends AbstractRenderer {
                 .withAzimuth(5 / 4f * Math.PI) // otočení do strany o (180+45) stupňů v radiánech
                 .withZenith(-1 / 5f * Math.PI); // otočení (90/5) stupňů dolů
 
-        cameraLight = new Camera().withPosition(new Vec3D(-5, -3, -1));
+        cameraLight = new Camera().withPosition(new Vec3D(5, 5, 0));
 
 //        view = new Mat4ViewRH(
 //                new Vec3D(4, 4, 4),
@@ -106,10 +115,17 @@ public class Renderer extends AbstractRenderer {
         //render2();
 
         //gridRender();
-        renderDuck();
+        renderElephant();
+        gridRenderElephant();
         //viewer.view(texture1, -1, -1, 0.5);
         //viewer.view(renderTarget.getColorTexture(), -1, -0.5, 0.5);
-
+        cameraLight = cameraLight.withPosition(new Vec3D(
+                cameraLight.getPosition().getX()*Math.cos(otoceni)-cameraLight.getPosition().getY()*Math.sin(otoceni),
+                cameraLight.getPosition().getX()*Math.sin(otoceni)+cameraLight.getPosition().getY()*Math.cos(otoceni),
+                cameraLight.getPosition().getZ()
+        ));
+        otoceni=otoceni+0.00001;
+        System.out.println(cameraLight.getPosition());
         textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
     }
 
@@ -184,7 +200,7 @@ public class Renderer extends AbstractRenderer {
         //texture1.bind(shaderProgramGrid, "texture1", 0);
         buffers.draw(GL_TRIANGLES, shaderProgramGrid);
     }
-    private void renderDuck(){
+    private void renderElephant(){
         glUseProgram(shaderProgramElephant);
 
         //renderTarget.bind();
@@ -201,8 +217,28 @@ public class Renderer extends AbstractRenderer {
         glUniformMatrix4fv(locViewElephant, false, camera.getViewMatrix().floatArray());
         glUniformMatrix4fv(locProjectionElephant, false, projection.floatArray());
 
-        texture1.bind(shaderProgramGrid, "texture1", 0);
+        //texture1.bind(shaderProgramGrid, "texture1", 0);
         buffersElephant.draw(modelElephant.getTopology(), shaderProgramElephant);
+    }
+    private void gridRenderElephant(){
+        glUseProgram(shaderProgramElephantSun);
+
+        //renderTarget.bind();
+
+        //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//
+        //glClearColor(0, .1f, 0, 1);
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//
+        //glViewport(0, 0, LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
+
+
+        glUniform3fv(locLightPosElephantSun, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniformMatrix4fv(locViewElephantSun, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionElephantSun, false, projection.floatArray());
+
+        //texture1.bind(shaderProgramGrid, "texture1", 0);
+        buffers.draw(GL_TRIANGLE_STRIP, shaderProgramElephantSun);
     }
 
 //    @Override

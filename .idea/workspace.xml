@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6829f3f-ed8b-4a41-baca-17a259ea46a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shaders/elephant.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/elephant.vert" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/elephantSun.frag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/elephantSun.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/GridFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/GridFactory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/elephant.frag" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/elephant.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/elephant.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/elephant.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/GridFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GridFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/elephant.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/elephant.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/elephant.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/elephant.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Renderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,13 +38,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/shaders" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res/textures" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\res\textures" />
       <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders" />
     </key>
   </component>
@@ -78,46 +84,46 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="460" height="466" key="DebuggerActiveHint" timestamp="1605452032458">
+    <state width="460" height="466" key="DebuggerActiveHint" timestamp="1605463138409">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="460" height="466" key="DebuggerActiveHint/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605452032458" />
+    <state width="460" height="466" key="DebuggerActiveHint/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605463138409" />
     <state x="986" y="441" key="FileChooserDialogImpl" timestamp="1605096861326">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="986" y="441" key="FileChooserDialogImpl/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096861326" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1605455635042">
+    <state width="2517" height="492" key="GridCell.Tab.0.bottom" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635042" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1605455635041">
+    <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.0.center" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635041" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1605455635041">
+    <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.0.left" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635041" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1605455635041">
+    <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.0.right" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635041" />
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605455635038">
+    <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635038" />
-    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605455635037">
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635037" />
-    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605455635037">
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635037" />
-    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605455635038">
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635038" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
     <state x="760" y="274" key="SettingsEditor" timestamp="1604942848672">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -130,16 +136,9 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="871" y="320" key="new project wizard/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096862906" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/Renderer.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="936" y="330" key="run.anything.popup" timestamp="1605461417755">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="936" y="330" key="run.anything.popup/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605461417755" />
   </component>
 </project>

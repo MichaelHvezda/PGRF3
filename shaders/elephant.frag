@@ -19,7 +19,7 @@ void main() {
     vec4 specular = vec4(cosB*vec3(0.9), 1.0);
 
     vec4 finalColor = ambient + diffuse + specular;
-    vec4 textureColor = vec4(0.8,0.8,0.8, 1.0);
+    vec4 textureColor = vec4(0.1,0.1,0.1, 1.0);
     outColor = finalColor * textureColor;
     //outColor = vec4(0.8,0.8,0.8, 1.0);
     //outColor = vec4(1.0);
