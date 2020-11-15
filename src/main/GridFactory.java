@@ -38,11 +38,6 @@ public class GridFactory {
             }
         }
 
-        for (int iiisjd:ib
-        ) {
-            System.out.println(iiisjd);
-        }
-
         OGLBuffers.Attrib[] attributes = {
              new OGLBuffers.Attrib("inPosition", 2) // 2 floats per vertex
         };
@@ -64,7 +59,6 @@ public class GridFactory {
         }
         // počet bodů + duplicitni body v generovaném troj + body uvnitř mříšky které jsou duplicitní + (-1) jelikoz by mel vzniknout bod s degen troj ale nevznika
         int pocet = (a) * (b) + (b-1) + (a-1) * (b-1)-1;
-        System.out.println("pocet " +pocet);
         int[] ib = new int[pocet];
         int index2 = 0;
 
@@ -95,13 +89,6 @@ public class GridFactory {
             }
         }
 
-
-        for (int iiisjd:ib
-             ) {
-            System.out.println(iiisjd);
-        }
-
-        System.out.println("54 "+ index2);
         OGLBuffers.Attrib[] attributes = {
                 new OGLBuffers.Attrib("inPosition", 2) // 2 floats per vertex
         };

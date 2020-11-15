@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6829f3f-ed8b-4a41-baca-17a259ea46a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shaders/grid.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/grid.vert" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/elephant.frag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/elephant.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/GridFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/GridFactory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/start.frag" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/start.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/start.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/start.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GridFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GridFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Renderer.java" afterDir="false" />
     </list>
@@ -80,57 +78,68 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="433" height="466" key="DebuggerActiveHint" timestamp="1605023807751">
+    <state width="460" height="466" key="DebuggerActiveHint" timestamp="1605452032458">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="433" height="466" key="DebuggerActiveHint/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605023807751" />
+    <state width="460" height="466" key="DebuggerActiveHint/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605452032458" />
     <state x="986" y="441" key="FileChooserDialogImpl" timestamp="1605096861326">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="986" y="441" key="FileChooserDialogImpl/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096861326" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1605390453360">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1605455635042">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605390453360" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1605390453360">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635042" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1605455635041">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605390453360" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1605390453359">
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635041" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1605455635041">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605390453359" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1605390453360">
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635041" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1605455635041">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605390453360" />
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605217501501">
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635041" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605455635038">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605217501501" />
-    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605217501501">
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635038" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605455635037">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605217501501" />
-    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605217501500">
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635037" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605455635037">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605217501500" />
-    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605217501501">
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635037" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605455635038">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605217501501" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605455635038" />
     <state x="760" y="274" key="SettingsEditor" timestamp="1604942848672">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="760" y="274" key="SettingsEditor/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1604942848672" />
-    <state x="1097" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605214196736">
+    <state x="1097" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605451524936">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1097" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605214196736" />
+    <state x="1097" y="614" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605451524936" />
     <state x="871" y="320" key="new project wizard" timestamp="1605096862906">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="871" y="320" key="new project wizard/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096862906" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/Renderer.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
