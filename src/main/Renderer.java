@@ -1,6 +1,7 @@
 package main;
 
 import lwjglutils.*;
+import lwjglutils.OGLBuffers.Attrib;
 import org.lwjgl.glfw.*;
 import transforms.*;
 
@@ -14,15 +15,15 @@ import static org.lwjgl.opengl.GL30.*;
 public class Renderer extends AbstractRenderer {
 
     private int shaderProgram1, shaderProgram2, shaderProgramGrid , shaderProgramElephant;
-    private OGLBuffers buffers,buffersElephant;
+    private OGLBuffers buffers,buffersElephant ,buffersSun;
 
-    private double otoceni =0;
+    private double otoceni =0.01;
     private int locView, locProjection, locTemp, locLightPos;
     private int locView2, locProjection2;
     private int locViewGrid, locProjectionGrid;
     private int locViewElephant, locProjectionElephant ,locLightPosElephant,shaderProgramElephantSun;
     private int locViewElephantSun, locProjectionElephantSun ,locLightPosElephantSun;
-
+    private int locViewObjekt, locProjectionObjekt ,locLightObjekt,shaderProgramObjekt;
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
@@ -46,6 +47,7 @@ public class Renderer extends AbstractRenderer {
         shaderProgramGrid = ShaderUtils.loadProgram("/grid");
         shaderProgramElephant = ShaderUtils.loadProgram("/elephant");
         shaderProgramElephantSun = ShaderUtils.loadProgram("/elephantSun");
+        shaderProgramObjekt = ShaderUtils.loadProgram("/objekt");
 
         locLightPos = glGetUniformLocation(shaderProgram1, "lightPos");
         locView = glGetUniformLocation(shaderProgram1, "view");
@@ -61,6 +63,10 @@ public class Renderer extends AbstractRenderer {
         locProjectionElephant = glGetUniformLocation(shaderProgramElephant, "projection");
         locLightPosElephant = glGetUniformLocation(shaderProgramElephant, "lightPos");
 
+        locViewObjekt = glGetUniformLocation(shaderProgramObjekt, "view");
+        locProjectionObjekt = glGetUniformLocation(shaderProgramObjekt, "projection");
+        locLightObjekt = glGetUniformLocation(shaderProgramObjekt, "lightPos");
+
         locViewElephantSun = glGetUniformLocation(shaderProgramElephantSun, "view");
         locProjectionElephantSun = glGetUniformLocation(shaderProgramElephantSun, "projection");
         locLightPosElephantSun = glGetUniformLocation(shaderProgramElephantSun, "lightPos");
@@ -71,6 +77,7 @@ public class Renderer extends AbstractRenderer {
 
 //*
         buffers = GridFactory.generateGridStrip(100, 100);
+        buffersSun = GridFactory.generateGridStrip(100, 100);
 /*/
         buffers = GridFactory.generateGrid(4,4);
         //*/
@@ -113,9 +120,9 @@ public class Renderer extends AbstractRenderer {
         glEnable(GL_DEPTH_TEST);
         //render1();
         //render2();
-
+        objektRender();
         //gridRender();
-        renderElephant();
+        //renderElephant();
         gridRenderElephant();
         //viewer.view(texture1, -1, -1, 0.5);
         //viewer.view(renderTarget.getColorTexture(), -1, -0.5, 0.5);
@@ -124,8 +131,7 @@ public class Renderer extends AbstractRenderer {
                 cameraLight.getPosition().getX()*Math.sin(otoceni)+cameraLight.getPosition().getY()*Math.cos(otoceni),
                 cameraLight.getPosition().getZ()
         ));
-        otoceni=otoceni+0.00001;
-        System.out.println(cameraLight.getPosition());
+
         textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
     }
 
@@ -238,13 +244,33 @@ public class Renderer extends AbstractRenderer {
         glUniformMatrix4fv(locProjectionElephantSun, false, projection.floatArray());
 
         //texture1.bind(shaderProgramGrid, "texture1", 0);
-        buffers.draw(GL_TRIANGLE_STRIP, shaderProgramElephantSun);
+        buffersSun.draw(GL_TRIANGLE_STRIP, shaderProgramElephantSun);
+    }
+    private void objektRender(){
+        glUseProgram(shaderProgramObjekt);
+
+        //renderTarget.bind();
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+        glClearColor(0, .1f, 0, 1);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glViewport(0, 0, LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
+
+
+        glUniform3fv(locLightObjekt, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniformMatrix4fv(locViewObjekt, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionObjekt, false, projection.floatArray());
+
+        //texture1.bind(shaderProgramGrid, "texture1", 0);
+        buffers.draw(GL_TRIANGLE_STRIP, shaderProgramObjekt);
     }
 
-//    @Override
-//    public GLFWWindowSizeCallback getWsCallback() {
-//        return null; // FIXME
-//    }
+    @Override
+    public GLFWWindowSizeCallback getWsCallback() {
+        return null; // FIXME
+    }
 
     @Override
     public GLFWCursorPosCallback getCursorCallback() {
@@ -263,7 +289,6 @@ public class Renderer extends AbstractRenderer {
 
     private double oldMx, oldMy;
     private boolean mousePressed;
-
     private final GLFWCursorPosCallback cursorPosCallback = new GLFWCursorPosCallback() {
         @Override
         public void invoke(long window, double x, double y) {

@@ -3,7 +3,7 @@ package lwjglutils;
 import org.lwjgl.BufferUtils;
 import transforms.Mat4Scale;
 import transforms.Mat4Transl;
-
+import lwjglutils.OGLBuffers.Attrib;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;

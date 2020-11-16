@@ -1,7 +1,7 @@
 package main;
 
 import lwjglutils.OGLBuffers;
-
+import lwjglutils.OGLBuffers.Attrib;
 public class GridFactory {
 
     /**

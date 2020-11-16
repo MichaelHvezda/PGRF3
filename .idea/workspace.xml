@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6829f3f-ed8b-4a41-baca-17a259ea46a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shaders/elephantSun.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/elephantSun.vert" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/objekt.frag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shaders/objekt.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/elephant.frag" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/elephant.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/elephant.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/elephant.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/Renderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/elephant.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/elephant.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shaders/elephant.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/elephant.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lwjglutils/OGLTextRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwjglutils/OGLTextRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GridFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GridFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Renderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,6 +84,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605563342628">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605563342628" />
     <state width="460" height="466" key="DebuggerActiveHint" timestamp="1605463138409">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -92,22 +96,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="986" y="441" key="FileChooserDialogImpl/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096861326" />
-    <state width="2517" height="492" key="GridCell.Tab.0.bottom" timestamp="1605473804094">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1605563552934">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
-    <state width="2517" height="492" key="GridCell.Tab.0.center" timestamp="1605473804094">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605563552934" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1605563552934">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
-    <state width="2517" height="492" key="GridCell.Tab.0.left" timestamp="1605473804094">
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605563552934" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1605563552933">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
-    <state width="2517" height="492" key="GridCell.Tab.0.right" timestamp="1605473804094">
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605563552933" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1605563552934">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605563552934" />
     <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605473804094">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -124,6 +128,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605473804094" />
+    <state x="1069" y="402" key="RollbackChangesDialog" timestamp="1605563170471">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1069" y="402" key="RollbackChangesDialog/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605563170471" />
     <state x="760" y="274" key="SettingsEditor" timestamp="1604942848672">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

@@ -13,7 +13,7 @@ out vec3 normal;
 void main() {
 
     //vertColor = inNormal * 0.5 + 0.5;
-    vertColor = vec3(inTexCoord ,inTexCoord.x);
+    //vertColor = vec3(inTexCoord ,inTexCoord.x);
     normal = inNormal;
     light = lightPos - (view * vec4(-inPosition*0.1,1.0)).xyz;
     viewDirection = -(view * vec4(-inPosition*0.1,1.0)).xyz;
