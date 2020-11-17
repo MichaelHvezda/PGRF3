@@ -1,7 +1,6 @@
 package main;
 
 import lwjglutils.*;
-import lwjglutils.OGLBuffers.Attrib;
 import org.lwjgl.glfw.*;
 import transforms.*;
 
@@ -23,7 +22,7 @@ public class Renderer extends AbstractRenderer {
     private int locViewGrid, locProjectionGrid;
     private int locViewElephant, locProjectionElephant ,locLightPosElephant,shaderProgramElephantSun;
     private int locViewElephantSun, locProjectionElephantSun ,locLightPosElephantSun;
-    private int locViewObjekt, locProjectionObjekt ,locLightObjekt,shaderProgramObjekt;
+    private int locViewObjekt, locProjectionObjekt ,locLightObjekt,shaderProgramObjekt,locCameraObjekt;
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
@@ -66,6 +65,7 @@ public class Renderer extends AbstractRenderer {
         locViewObjekt = glGetUniformLocation(shaderProgramObjekt, "view");
         locProjectionObjekt = glGetUniformLocation(shaderProgramObjekt, "projection");
         locLightObjekt = glGetUniformLocation(shaderProgramObjekt, "lightPos");
+        locCameraObjekt = glGetUniformLocation(shaderProgramObjekt, "cameraPos");
 
         locViewElephantSun = glGetUniformLocation(shaderProgramElephantSun, "view");
         locProjectionElephantSun = glGetUniformLocation(shaderProgramElephantSun, "projection");
@@ -89,11 +89,11 @@ public class Renderer extends AbstractRenderer {
 //                true
 //        );
         camera = new Camera()
-                .withPosition(new Vec3D(6, 6, 5)) // pozice pozorovatele
+                .withPosition(new Vec3D(2, 2, 1)) // pozice pozorovatele
                 .withAzimuth(5 / 4f * Math.PI) // otočení do strany o (180+45) stupňů v radiánech
                 .withZenith(-1 / 5f * Math.PI); // otočení (90/5) stupňů dolů
 
-        cameraLight = new Camera().withPosition(new Vec3D(5, 5, 0));
+        cameraLight = new Camera().withPosition(new Vec3D(-2, -2, 1));
 
 //        view = new Mat4ViewRH(
 //                new Vec3D(4, 4, 4),
@@ -101,7 +101,7 @@ public class Renderer extends AbstractRenderer {
 //                new Vec3D(0, 0, 1)
 //        );
 
-        projection = new Mat4PerspRH(Math.PI / 3, 600 / 800f, 1, 20);
+        projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
 //        projection = new Mat4OrthoRH(10, 7, 1, 20);
 
         try {
@@ -260,6 +260,7 @@ public class Renderer extends AbstractRenderer {
 
 
         glUniform3fv(locLightObjekt, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniform3fv(locCameraObjekt, ToFloatArray.convert(camera.getPosition()));
         glUniformMatrix4fv(locViewObjekt, false, camera.getViewMatrix().floatArray());
         glUniformMatrix4fv(locProjectionObjekt, false, projection.floatArray());
 
@@ -269,7 +270,7 @@ public class Renderer extends AbstractRenderer {
 
     @Override
     public GLFWWindowSizeCallback getWsCallback() {
-        return null; // FIXME
+        return windowResCallback; // FIXME
     }
 
     @Override
@@ -289,6 +290,15 @@ public class Renderer extends AbstractRenderer {
 
     private double oldMx, oldMy;
     private boolean mousePressed;
+
+    private final GLFWWindowSizeCallback windowResCallback = new GLFWWindowSizeCallback() {
+        @Override
+        public void invoke(long window, int width, int height) {
+            LwjglWindow.HEIGHT = height;
+            LwjglWindow.WIDTH = width;
+        }
+    };
+
     private final GLFWCursorPosCallback cursorPosCallback = new GLFWCursorPosCallback() {
         @Override
         public void invoke(long window, double x, double y) {
