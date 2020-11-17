@@ -41,15 +41,15 @@ public class LwjglWindow {
         }
     }
 
-    LwjglWindow(AbstractRenderer renderer) {
+    public LwjglWindow(AbstractRenderer renderer) {
         this(WIDTH, HEIGHT, renderer, false);
     }
 
-    LwjglWindow(AbstractRenderer renderer, boolean debug) {
+    public LwjglWindow(AbstractRenderer renderer, boolean debug) {
         this(WIDTH, HEIGHT, renderer, debug);
     }
 
-    LwjglWindow(int width, int height, AbstractRenderer renderer, boolean debug) {
+    public LwjglWindow(int width, int height, AbstractRenderer renderer, boolean debug) {
         this.renderer = renderer;
         DEBUG = debug;
         WIDTH = width;
