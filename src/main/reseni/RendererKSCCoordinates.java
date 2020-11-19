@@ -4,7 +4,6 @@ import lwjglutils.*;
 import main.AbstractRenderer;
 import main.GridFactory;
 import main.LwjglWindow;
-import main.Renderer;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
@@ -19,22 +18,24 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
 import static org.lwjgl.opengl.GL30.glBindFramebuffer;
 
-public class RendererGrid extends AbstractRenderer {
+public class RendererKSCCoordinates extends AbstractRenderer {
 
-    private int shaderProgram1, shaderProgram2, shaderProgramGrid , shaderProgramElephant;
-    private OGLBuffers buffers , buffersStrip,buffersElephant ,buffersSun;
+    private int shaderProgram1, shaderProgram2, shaderProgramKartez1,shaderProgramValec1,shaderProgramKoule1, shaderProgramElephant;
+    private OGLBuffers buffers,buffersElephant ,buffersSun;
 
     private double otoceni =0.01;
+    private float varObj = 0;
     private int locView, locProjection, locTemp, locLightPos;
     private int locView2, locProjection2;
-    private int locViewGrid, locProjectionGrid;
+    private int locViewKartez1, locProjectionKartez1, locObjCountKartez1, locVarObjKartez1;
+    private int locViewValec1, locProjectionValec1, locObjCountValec1, locVarObjValec1;
+    private int locViewKoule1, locProjectionKoule1, locObjCountKoule1, locVarObjKoule1;
     private int locViewElephant, locProjectionElephant ,locLightPosElephant,shaderProgramElephantSun;
     private int locViewElephantSun, locProjectionElephantSun ,locLightPosElephantSun;
     private int locViewObjekt, locProjectionObjekt ,locLightObjekt,shaderProgramObjekt,locCameraObjekt;
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
-    private int switchInt = 0;
     private boolean per;
     OGLModelOBJ modelElephant;
     private OGLTexture2D texture1;
@@ -50,15 +51,46 @@ public class RendererGrid extends AbstractRenderer {
 
         textRenderer = new OGLTextRenderer(LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
 
-        shaderProgramGrid = ShaderUtils.loadProgram("/grid/grid");
+        shaderProgram1 = ShaderUtils.loadProgram("/start");
+        shaderProgram2 = ShaderUtils.loadProgram("/postProc");
+        shaderProgramKartez1 = ShaderUtils.loadProgram("/KSC/kartez");
+        shaderProgramKoule1 = ShaderUtils.loadProgram("/KSC/koule");
+        shaderProgramValec1 = ShaderUtils.loadProgram("/KSC/valec");
 
-        locViewGrid = glGetUniformLocation(shaderProgramGrid, "view");
-        locProjectionGrid = glGetUniformLocation(shaderProgramGrid, "projection");
+        locViewKartez1 = glGetUniformLocation(shaderProgramKartez1, "view");
+        locProjectionKartez1 = glGetUniformLocation(shaderProgramKartez1, "projection");
+        locObjCountKartez1 = glGetUniformLocation(shaderProgramKartez1, "objCount");
+        locVarObjKartez1 = glGetUniformLocation(shaderProgramKartez1, "varObj");
+
+        locViewKoule1 = glGetUniformLocation(shaderProgramKoule1, "view");
+        locProjectionKoule1 = glGetUniformLocation(shaderProgramKoule1, "projection");
+        locObjCountKoule1 = glGetUniformLocation(shaderProgramKoule1, "objCount");
+        locVarObjKoule1 = glGetUniformLocation(shaderProgramKoule1, "varObj");
+
+        locViewValec1 = glGetUniformLocation(shaderProgramValec1, "view");
+        locProjectionValec1 = glGetUniformLocation(shaderProgramValec1, "projection");
+        locObjCountValec1 = glGetUniformLocation(shaderProgramValec1, "objCount");
+        locVarObjValec1 = glGetUniformLocation(shaderProgramValec1, "varObj");
 
 
-        buffers = GridFactory.generateGrid(100, 100);
-        buffersStrip = GridFactory.generateGridStrip(100, 100);
 
+
+        modelElephant = new OGLModelOBJ("/obj/ElephantBody.obj");
+        buffersElephant = modelElephant.getBuffers();
+
+//*
+        buffers = GridFactory.generateGridStrip(100, 100);
+        buffersSun = GridFactory.generateGridStrip(100, 100);
+/*/
+        buffers = GridFactory.generateGrid(4,4);
+        //*/
+//        camera = new Camera(
+//                new Vec3D(6, 6, 5),
+//                5 / 4f * Math.PI,
+//                -1 / 5f * Math.PI,
+//                1,
+//                true
+//        );
         camera = new Camera()
                 .withPosition(new Vec3D(2, 2, 1)) // pozice pozorovatele
                 .withAzimuth(5 / 4f * Math.PI) // otočení do strany o (180+45) stupňů v radiánech
@@ -66,8 +98,14 @@ public class RendererGrid extends AbstractRenderer {
 
         cameraLight = new Camera().withPosition(new Vec3D(-2, -2, 1));
 
-        projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
+//        view = new Mat4ViewRH(
+//                new Vec3D(4, 4, 4),
+//                new Vec3D(-1, -1, -1),
+//                new Vec3D(0, 0, 1)
+//        );
 
+        projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
+//        projection = new Mat4OrthoRH(10, 7, 1, 20);
 
         try {
             texture1 = new OGLTexture2D("./textures/testTexture.jpg");
@@ -84,46 +122,81 @@ public class RendererGrid extends AbstractRenderer {
     public void display() {
         glEnable(GL_DEPTH_TEST);
         perspective();
-        gridRender();
+        clearAndViewPort();
+        renderKartez();
+       renderKoule();
+       renderValec();
+        //viewer.view(texture1, -1, -1, 0.5);
+        //viewer.view(renderTarget.getColorTexture(), -1, -0.5, 0.5);
+        cameraLight = cameraLight.withPosition(new Vec3D(
+                cameraLight.getPosition().getX()*Math.cos(otoceni)-cameraLight.getPosition().getY()*Math.sin(otoceni),
+                cameraLight.getPosition().getX()*Math.sin(otoceni)+cameraLight.getPosition().getY()*Math.cos(otoceni),
+                cameraLight.getPosition().getZ()
+        ));
 
         textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
     }
+    
+    private void renderKartez(){
+        glUseProgram(shaderProgramKartez1);
 
-    private void gridRender(){
-        glUseProgram(shaderProgramGrid);
+        //renderTarget.bind();
 
+        varObj +=0.01;
+        glUniform1f(locObjCountKartez1, 1.0f);
+        glUniform1f(locVarObjKartez1, varObj);
+        glUniformMatrix4fv(locViewKartez1, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionKartez1, false, projection.floatArray());
+
+        //texture1.bind(shaderProgramCylindrick1, "texture1", 0);
+        buffers.draw(GL_LINES, shaderProgramKartez1);
+
+        glUniform1f(locObjCountKartez1, 0.0f);
+        buffers.draw(GL_LINES, shaderProgramKartez1);
+    }
+
+    private void renderValec(){
+        glUseProgram(shaderProgramValec1);
+
+        //renderTarget.bind();
+
+
+        glUniform1f(locObjCountValec1, 1.0f);
+        glUniformMatrix4fv(locViewValec1, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionValec1, false, projection.floatArray());
+
+        //texture1.bind(shaderProgramCylindrick1, "texture1", 0);
+        buffers.draw(GL_LINES, shaderProgramValec1);
+
+        glUniform1f(locObjCountValec1, 0.0f);
+        buffers.draw(GL_LINES, shaderProgramValec1);
+    }
+
+    private void renderKoule(){
+        glUseProgram(shaderProgramKoule1);
+
+        //renderTarget.bind();
+
+        glUniform1f(locObjCountKoule1, 1.0f);
+        glUniformMatrix4fv(locViewKoule1, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionKoule1, false, projection.floatArray());
+
+        //texture1.bind(shaderProgramCylindrick1, "texture1", 0);
+        buffers.draw(GL_LINES, shaderProgramKoule1);
+
+        glUniform1f(locObjCountKartez1, 0.0f);
+        buffers.draw(GL_LINES, shaderProgramKoule1);
+    }
+
+    public void clearAndViewPort(){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         glClearColor(0, .1f, 0, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glViewport(0, 0, LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
-
-        glUniformMatrix4fv(locViewGrid, false, camera.getViewMatrix().floatArray());
-        glUniformMatrix4fv(locProjectionGrid, false, projection.floatArray());
-
-        switch (switchInt){
-            case 0:
-                buffers.draw(GL_TRIANGLES, shaderProgramGrid);
-                break;
-            case 1:
-                buffers.draw(GL_LINES, shaderProgramGrid);
-                break;
-            case 2:
-                buffers.draw(GL_POINTS, shaderProgramGrid);
-                break;
-            case 3:
-                buffersStrip.draw(GL_TRIANGLE_STRIP, shaderProgramGrid);
-                break;
-            case 4:
-                buffersStrip.draw(GL_LINES, shaderProgramGrid);
-                break;
-            case 5:
-                buffersStrip.draw(GL_POINTS, shaderProgramGrid);
-                break;
-        }
-
     }
+
     public void perspective(){
         if(!per){
             projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
@@ -134,7 +207,6 @@ public class RendererGrid extends AbstractRenderer {
                     1,20);
         }
     }
-
 
     @Override
     public GLFWWindowSizeCallback getWsCallback() {
@@ -216,9 +288,6 @@ public class RendererGrid extends AbstractRenderer {
                     case GLFW_KEY_F :
                         camera = camera.down(0.1);
                         break;
-                    case GLFW_KEY_M :
-                        switchInt = (switchInt+1)%6;
-                        break;
                     case GLFW_KEY_P :
                         per=!per;
                         break;
@@ -228,8 +297,7 @@ public class RendererGrid extends AbstractRenderer {
     };
 
     public static void main(String[] args) {
-        new LwjglWindow(new RendererGrid());
+        new LwjglWindow(new RendererKSCCoordinates());
     }
-
 
 }

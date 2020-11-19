@@ -18,19 +18,19 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
 import static org.lwjgl.opengl.GL30.glBindFramebuffer;
 
-public class RendererTwoObjects extends AbstractRenderer {
+public class RendererTwoObjectsReflector extends AbstractRenderer {
 
-    private int shaderProgram1, shaderProgram2, shaderProgramGrid , shaderProgramElephant,shaderProgramDuck,locLightPosElephantSun;
+    private int shaderProgram1, shaderProgram2, shaderProgramGrid , shaderProgramElephant,shaderProgramDuck;
     private OGLBuffers buffersDuck,buffersElephant ,buffersSun;
 
     private double otoceni =0.01;
     private int locView, locProjection, locTemp, locLightPos;
     private int locView2, locProjection2;
     private int locViewGrid, locProjectionGrid;
-    private int locViewElephant, locProjectionElephant ,locLightPosElephant,locCameraPosElephant;
+    //private int locViewElephant, locProjectionElephant ,locLightPosElephant,locCameraPosElephant;
     private int locViewDuck, locProjectionDuck ,locLightPosDuck,locCameraPosDuck;
-    private int locViewElephantSun, locProjectionElephantSun ,shaderProgramElephantSun;
-    private int locViewObjekt, locProjectionObjekt ,locLightObjekt,shaderProgramObjekt,locCameraObjekt;
+    private int locViewSun, locProjectionSun, shaderProgramSun, locLightPosSun,locLightDirSun, locLightSpotCutOffSun;
+    private int locViewObjekt, locProjectionObjekt,locCameraPosObjekt,locLightPosObjekt,locTempObjekt,locLightDirObjekt,locLightSpotCutOffObjekt ,locLightObjekt,shaderProgramObjekt,locCameraObjekt;
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
@@ -39,6 +39,8 @@ public class RendererTwoObjects extends AbstractRenderer {
     private OGLTexture2D texture1;
     private OGLTexture2D.Viewer viewer;
     private OGLRenderTarget renderTarget;
+    private Vec3D lightDir = new Vec3D(1,0,0);
+    private float lightSpotCutOff = (float)Math.PI/(float)4;
 
     @Override
     public void init() {
@@ -49,23 +51,28 @@ public class RendererTwoObjects extends AbstractRenderer {
 
         textRenderer = new OGLTextRenderer(LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
 
-        shaderProgramElephant = ShaderUtils.loadProgram("/twoObjects/elephant");
-        shaderProgramDuck = ShaderUtils.loadProgram("/twoObjects/duck");
-        shaderProgramElephantSun = ShaderUtils.loadProgram("/twoObjects/objSun");
+        shaderProgramObjekt = ShaderUtils.loadProgram("/refrector/objekt");
+        //shaderProgramDuck = ShaderUtils.loadProgram("/refrector/duck");
+        shaderProgramSun = ShaderUtils.loadProgram("/refrector/objSun");
 
-        locViewElephant = glGetUniformLocation(shaderProgramElephant, "view");
-        locProjectionElephant = glGetUniformLocation(shaderProgramElephant, "projection");
-        locLightPosElephant = glGetUniformLocation(shaderProgramElephant, "lightPos");
-        locCameraPosElephant = glGetUniformLocation(shaderProgramElephant, "cameraPos");
+        locViewObjekt = glGetUniformLocation(shaderProgramObjekt, "view");
+        locProjectionObjekt = glGetUniformLocation(shaderProgramObjekt, "projection");
+        locLightPosObjekt = glGetUniformLocation(shaderProgramObjekt, "lightPos");
+        locCameraPosObjekt = glGetUniformLocation(shaderProgramObjekt, "cameraPos");
+        locTempObjekt = glGetUniformLocation(shaderProgramObjekt, "temp");
+        locLightDirObjekt = glGetUniformLocation(shaderProgramObjekt, "lightDir");
+        locLightSpotCutOffObjekt = glGetUniformLocation(shaderProgramObjekt, "lightSpotCutOff");
 
-        locViewDuck = glGetUniformLocation(shaderProgramDuck, "view");
-        locProjectionDuck = glGetUniformLocation(shaderProgramDuck, "projection");
-        locLightPosDuck = glGetUniformLocation(shaderProgramDuck, "lightPos");
-        locCameraPosDuck = glGetUniformLocation(shaderProgramDuck, "cameraPos");
+        //locViewDuck = glGetUniformLocation(shaderProgramDuck, "view");
+        //locProjectionDuck = glGetUniformLocation(shaderProgramDuck, "projection");
+        //locLightPosDuck = glGetUniformLocation(shaderProgramDuck, "lightPos");
+        //locCameraPosDuck = glGetUniformLocation(shaderProgramDuck, "cameraPos");
 
-        locViewElephantSun = glGetUniformLocation(shaderProgramElephantSun, "view");
-        locProjectionElephantSun = glGetUniformLocation(shaderProgramElephantSun, "projection");
-        locLightPosElephantSun = glGetUniformLocation(shaderProgramElephantSun, "lightPos");
+        locViewSun = glGetUniformLocation(shaderProgramSun, "view");
+        locProjectionSun = glGetUniformLocation(shaderProgramSun, "projection");
+        locLightPosSun = glGetUniformLocation(shaderProgramSun, "lightPos");
+        locLightDirSun = glGetUniformLocation(shaderProgramSun, "lightDir");
+        locLightSpotCutOffSun = glGetUniformLocation(shaderProgramSun, "lightSpotCutOff");
 
 
         modelElephant = new OGLModelOBJ("/obj/ElephantBody.obj");
@@ -120,8 +127,8 @@ public class RendererTwoObjects extends AbstractRenderer {
         perspective();
         clearAndViewPort();
 
-        renderElephant();
-        renderDuck();
+        renderObjekt();
+        //renderDuck();
         renderSunPos();
 
         cameraLight = cameraLight.withPosition(new Vec3D(
@@ -133,21 +140,24 @@ public class RendererTwoObjects extends AbstractRenderer {
         textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
     }
 
-    private void renderElephant(){
-        glUseProgram(shaderProgramElephant);
+    private void renderObjekt(){
+        glUseProgram(shaderProgramObjekt);
 
         //renderTarget.bind();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+        glUniform3fv(locLightPosObjekt, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniform3fv(locLightDirObjekt, ToFloatArray.convert(lightDir));
 
+        glUniform3fv(locLightPosObjekt, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniform3fv(locCameraPosObjekt, ToFloatArray.convert(camera.getPosition()));
+        glUniformMatrix4fv(locViewObjekt, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionObjekt, false, projection.floatArray());
 
-        glUniform3fv(locLightPosElephant, ToFloatArray.convert(cameraLight.getPosition()));
-        glUniform3fv(locCameraPosElephant, ToFloatArray.convert(camera.getPosition()));
-        glUniformMatrix4fv(locViewElephant, false, camera.getViewMatrix().floatArray());
-        glUniformMatrix4fv(locProjectionElephant, false, projection.floatArray());
-
-        //texture1.bind(shaderProgramGrid, "texture1", 0);
-        buffersElephant.draw(modelElephant.getTopology(), shaderProgramElephant);
+        glUniform1f(locTempObjekt, 0.0f);
+        buffersElephant.draw(modelElephant.getTopology(), shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 1.0f);
+        buffersDuck.draw(modelDuck.getTopology(), shaderProgramObjekt);
     }
 
     private void renderDuck(){
@@ -161,18 +171,20 @@ public class RendererTwoObjects extends AbstractRenderer {
         glUniformMatrix4fv(locProjectionDuck, false, projection.floatArray());
 
         //texture1.bind(shaderProgramGrid, "texture1", 0);
-        buffersDuck.draw(modelDuck.getTopology(), shaderProgramDuck);
+
     }
 
     private void renderSunPos(){
-        glUseProgram(shaderProgramElephantSun);
+        glUseProgram(shaderProgramSun);
 
-        glUniform3fv(locLightPosElephantSun, ToFloatArray.convert(cameraLight.getPosition()));
-        glUniformMatrix4fv(locViewElephantSun, false, camera.getViewMatrix().floatArray());
-        glUniformMatrix4fv(locProjectionElephantSun, false, projection.floatArray());
+        glUniform3fv(locLightPosSun, ToFloatArray.convert(cameraLight.getPosition()));
+        glUniform3fv(locLightDirSun, ToFloatArray.convert(lightDir));
+        glUniform1f(locLightSpotCutOffSun, lightSpotCutOff);
+        glUniformMatrix4fv(locViewSun, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionSun, false, projection.floatArray());
 
         //texture1.bind(shaderProgramGrid, "texture1", 0);
-        buffersSun.draw(GL_TRIANGLE_STRIP, shaderProgramElephantSun);
+        buffersSun.draw(GL_TRIANGLE_STRIP, shaderProgramSun);
     }
 
     public void clearAndViewPort(){
@@ -282,7 +294,7 @@ public class RendererTwoObjects extends AbstractRenderer {
         }
     };
     public static void main(String[] args) {
-        new LwjglWindow(new RendererTwoObjects());
+        new LwjglWindow(new RendererTwoObjectsReflector());
     }
 
 }

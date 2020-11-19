@@ -16,23 +16,23 @@ const float otoceni = 3.1415;
 
 vec3 rotateXY(vec3 pos,float oto){
     return vec3(
-    pos.x*cos(otoceni)-pos.y*sin(otoceni),
-    pos.x*sin(otoceni)+pos.y*cos(otoceni),
+    pos.x*cos(oto)-pos.y*sin(oto),
+    pos.x*sin(oto)+pos.y*cos(oto),
     pos.z);
 }
 
 vec3 rotateYZ(vec3 pos,float oto){
     return vec3(
     pos.x,
-    pos.y*cos(otoceni)-pos.z*sin(otoceni),
-    pos.y*sin(otoceni)+pos.z*cos(otoceni));
+    pos.y*cos(oto)-pos.z*sin(oto),
+    pos.y*sin(oto)+pos.z*cos(oto));
 }
 
 vec3 rotateXZ(vec3 pos,float oto){
     return vec3(
-    pos.x*cos(otoceni)-pos.z*sin(otoceni),
+    pos.x*cos(oto)-pos.z*sin(oto),
     pos.y,
-    pos.x*sin(otoceni)+pos.z*cos(otoceni));
+    pos.x*sin(oto)+pos.z*cos(oto));
 }
 
 void main() {

@@ -26,7 +26,7 @@ public class Renderer extends AbstractRenderer {
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
-
+    private boolean per;
     OGLModelOBJ modelElephant;
     private OGLTexture2D texture1;
     private OGLTexture2D.Viewer viewer;
@@ -120,6 +120,7 @@ public class Renderer extends AbstractRenderer {
         glEnable(GL_DEPTH_TEST);
         //render1();
         //render2();
+        perspective();
         objektRender();
         //gridRender();
         //renderElephant();
@@ -268,6 +269,17 @@ public class Renderer extends AbstractRenderer {
         buffers.draw(GL_TRIANGLE_STRIP, shaderProgramObjekt);
     }
 
+    public void perspective(){
+        if(!per){
+            projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
+        }else {
+            projection = new Mat4OrthoRH(
+                    20*LwjglWindow.WIDTH / (float)LwjglWindow.HEIGHT,
+                    20*LwjglWindow.WIDTH / (float)LwjglWindow.HEIGHT,
+                    1,20);
+        }
+    }
+
     @Override
     public GLFWWindowSizeCallback getWsCallback() {
         return windowResCallback; // FIXME
@@ -347,6 +359,9 @@ public class Renderer extends AbstractRenderer {
                         break;
                     case GLFW_KEY_F :
                         camera = camera.down(0.1);
+                        break;
+                    case GLFW_KEY_P :
+                        per=!per;
                         break;
                 }
             }

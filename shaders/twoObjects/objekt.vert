@@ -7,11 +7,13 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
+uniform float temp;
 out vec3 light;
 out vec3 viewDirection;
 out vec3 fragPosition;
 out vec3 camera;
-
+out vec3 spotDirection;
+out vec3 lightFightRange;
 const float otoceni = 3.1415;
 
 vec3 rotateXY(vec3 pos,float oto){
@@ -39,18 +41,34 @@ void main() {
 
     //vertColor = inNormal * 0.5 + 0.5;
     //vertColor = vec3(inTexCoord ,inTexCoord.x);
-    vec3 position = inPosition*0.025;
-    position = rotateYZ(position,otoceni);
-    position = rotateXY(position,otoceni);
+    if(temp==0){
+        vec3 position = inPosition*0.025;
+        position = rotateYZ(position,otoceni);
+        position = rotateXY(position,otoceni);
 
-    //position = vec3(position.x + 5,position.y,position.z);
+        //position = vec3(position.x + 5,position.y,position.z);
 
-    fragPosition =position;
+        fragPosition =position;
 
-    light = lightPos - position;
-    camera = cameraPos - position;
-    viewDirection = -( vec4(position,1.0)).xyz;
-    gl_Position = projection * view * vec4(position, 1.0);
- //   outTexCoord =inTexCoord;
+        light = lightPos - position;
+        camera = cameraPos - position;
+        viewDirection = -( vec4(position,1.0)).xyz;
+        gl_Position = projection * view * vec4(position, 1.0);
+    }
+    if(temp==1){
+        vec3 position = inPosition*0.005;
+        position = rotateYZ(position,otoceni);
+
+        position = vec3(position.x + 5,position.y,position.z);
+
+        fragPosition =position;
+
+        light = lightPos - position;
+        camera = cameraPos - position;
+        viewDirection = -( vec4(position,1.0)).xyz;
+        gl_Position = projection * view * vec4(position, 1.0);
+    }
+
+    //   outTexCoord =inTexCoord;
     //vertColor = inPosition*0.01;
 }
