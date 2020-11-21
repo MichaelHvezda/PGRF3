@@ -28,7 +28,7 @@ public class RendererSSAO extends AbstractRenderer {
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
-    private boolean per;
+    private boolean per,debug;
     OGLModelOBJ modelElephant,modelDuck;
     private OGLTexture2D texture1,randomTexture;
     private OGLTexture2D.Viewer viewer;
@@ -149,14 +149,16 @@ public class RendererSSAO extends AbstractRenderer {
         ));
         //System.out.println(lightSpotCutOff);
         lightDir = new Vec3D(cameraLight.getPosition().mul(-1));
-        viewer.view(prvniRT.getColorTexture(0),-1,0,0.5);
-        viewer.view(prvniRT.getColorTexture(1),-1, -0.5, 0.5);
-        viewer.view(prvniRT.getColorTexture(2),-0.5, -0.5, 0.5);
-        viewer.view(prvniRT.getDepthTexture(), -0.5, -1, 0.5);
-        viewer.view(druhyRT.getColorTexture(), -1, -1, 0.5);
-        //viewer.view(randomTexture,-0.5, 0, 0.5);
-        textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
-        textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 15, "refrektor " + lightSpotCutOff);
+        if(!debug){
+            viewer.view(prvniRT.getColorTexture(0),-1,0,0.5);
+            viewer.view(prvniRT.getColorTexture(1),-1, -0.5, 0.5);
+            viewer.view(prvniRT.getColorTexture(2),-0.5, -0.5, 0.5);
+            viewer.view(prvniRT.getDepthTexture(), -0.5, -1, 0.5);
+            viewer.view(druhyRT.getColorTexture(), -1, -1, 0.5);
+            //viewer.view(randomTexture,-0.5, 0, 0.5);
+            textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
+            textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 15, "refrektor " + lightSpotCutOff);
+        }
     }
 
     private void renderObjekt(){
@@ -280,8 +282,8 @@ public class RendererSSAO extends AbstractRenderer {
             projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
         }else {
             projection = new Mat4OrthoRH(
-                    20*LwjglWindow.WIDTH / (float)LwjglWindow.HEIGHT,
-                    20*LwjglWindow.WIDTH / (float)LwjglWindow.HEIGHT,
+                    -20*LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH,
+                    20*LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH,
                     1,20);
         }
     }
@@ -389,6 +391,9 @@ public class RendererSSAO extends AbstractRenderer {
                         break;
                     case GLFW_KEY_Z :
                         svetloAmbient=(svetloAmbient+1)%2;
+                        break;
+                    case GLFW_KEY_G :
+                        debug=!debug;
                         break;
                 }
             }

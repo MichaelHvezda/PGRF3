@@ -41,7 +41,9 @@ void main() {
             float cosBPow = pow(cosB,32);
             vec4 specular = vec4(cosBPow*vec3(1), 1.0);
 
-            float utlum=1;
+            float ligthLenght = length(lightPosition - position)/5;
+            float utlum=1.0/(1+ligthLenght+ligthLenght*ligthLenght);
+
             if(svetloADS.x==1){
                 ambient = vec4(0);
             }
