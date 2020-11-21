@@ -149,16 +149,27 @@ public class RendererSSAO extends AbstractRenderer {
         ));
         //System.out.println(lightSpotCutOff);
         lightDir = new Vec3D(cameraLight.getPosition().mul(-1));
+        textRenderer.resize(LwjglWindow.WIDTH,LwjglWindow.HEIGHT);
+
         if(!debug){
             viewer.view(prvniRT.getColorTexture(0),-1,0,0.5);
             viewer.view(prvniRT.getColorTexture(1),-1, -0.5, 0.5);
             viewer.view(prvniRT.getColorTexture(2),-0.5, -0.5, 0.5);
+            viewer.view(prvniRT.getColorTexture(3),-0.5, 0, 0.5);
             viewer.view(prvniRT.getDepthTexture(), -0.5, -1, 0.5);
             viewer.view(druhyRT.getColorTexture(), -1, -1, 0.5);
-            //viewer.view(randomTexture,-0.5, 0, 0.5);
-            textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
-            textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 15, "refrektor " + lightSpotCutOff);
+
+            textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(0f/4f)), (int)(LwjglWindow.HEIGHT*(2f/4f)), "Pozice");
+            textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(1f/4f)), (int)(LwjglWindow.HEIGHT*(2f/4f)), "View Pozice");
+            textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(0f/4f)), (int)(LwjglWindow.HEIGHT*(3f/4f)), "Textura");
+            textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(1f/4f)), (int)(LwjglWindow.HEIGHT*(3f/4f)), "Barva");
+            textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(0f/4f)), (int)(LwjglWindow.HEIGHT*(4f/4f)), "SSAO");
+            textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(1f/4f)), (int)(LwjglWindow.HEIGHT*(4f/4f)), "Hloubka");
+
         }
+        textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
+        textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 15, "refrektor " + ((1-lightSpotCutOff)*100)+" %");
+        textRenderer.addStr2D( 10, 25, "Camera [WASD QE], Perspektive [P], Mod gridu [M] , Typ světla - Reflektor/Vsestrane [L], Uhel svetla [B- V+], Debug [G], Ambient [Y], Diffuse [X], Spekular [C]");
     }
 
     private void renderObjekt(){
@@ -282,7 +293,7 @@ public class RendererSSAO extends AbstractRenderer {
             projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
         }else {
             projection = new Mat4OrthoRH(
-                    -20*LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH,
+                    20*LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH,
                     20*LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH,
                     1,20);
         }
@@ -316,6 +327,7 @@ public class RendererSSAO extends AbstractRenderer {
         public void invoke(long window, int width, int height) {
             LwjglWindow.HEIGHT = height;
             LwjglWindow.WIDTH = width;
+
         }
     };
 
@@ -362,10 +374,10 @@ public class RendererSSAO extends AbstractRenderer {
                     case GLFW_KEY_S :
                         camera = camera.backward(0.1);
                         break;
-                    case GLFW_KEY_R :
+                    case GLFW_KEY_Q :
                         camera = camera.up(0.1);
                         break;
-                    case GLFW_KEY_F :
+                    case GLFW_KEY_E :
                         camera = camera.down(0.1);
                         break;
                     case GLFW_KEY_P :

@@ -3,13 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="c6829f3f-ed8b-4a41-baca-17a259ea46a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/shade.frag" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/shade.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/SSAO/shade.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/shade.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/koule.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/koule.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lwjglutils/OGLTextRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwjglutils/OGLTextRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -160,38 +161,38 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="986" y="441" key="FileChooserDialogImpl/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096861326" />
-    <state width="2517" height="492" key="GridCell.Tab.0.bottom" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.0.bottom" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
-    <state width="2517" height="492" key="GridCell.Tab.0.center" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.0.center" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
-    <state width="2517" height="492" key="GridCell.Tab.0.left" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.0.left" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
-    <state width="2517" height="492" key="GridCell.Tab.0.right" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.0.right" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605979842304">
+    <state width="2517" height="492" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842304" />
-    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
-    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
-    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605979842303">
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1606002846711">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605979842303" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1606002846711" />
     <state x="1069" y="402" key="RollbackChangesDialog" timestamp="1605563170471">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

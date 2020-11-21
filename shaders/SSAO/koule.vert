@@ -125,7 +125,7 @@ void main() {
         //texCoord = inPosition;
         //vec2 position = inPosition * 2 - 1;
         vec3 position3d = vec3(position,0) ;
-        position3d = position3d +vec3(0,0,-2);
+        position3d = position3d +vec3(0,0,-1);
         positionOut = vec4(position3d,1);
         gl_Position = projection * view * vec4(position3d, 1.0);
     }
