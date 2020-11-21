@@ -13,8 +13,7 @@ import java.io.IOException;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
-import static org.lwjgl.opengl.GL30.glBindFramebuffer;
+import static org.lwjgl.opengl.GL30.*;
 
 public class RendererSSAO extends AbstractRenderer {
 
@@ -22,11 +21,10 @@ public class RendererSSAO extends AbstractRenderer {
     private double otoceni =0.01;
 
     private int locViewSun, locProjectionSun, shaderProgramSun, locLightPosSun,locLightDirSun, locLightSpotCutOffSun,locLightTypeSun;
-    private int shaderProgramObjekt,shaderProgramSSAO,shadeProgram,shaderProgramKoule,locShadeLightType,locShadeLightDir,locShadeLightSpotCutOff;
-    private int locTempObjekt , textureObjekt,locViewObjekt,locProjectionObjekt;
-    private int locTempKoule , textureKoule,locViewKoule,locProjectionKoule,locDeformKoule ;
+    private int shaderProgramSSAO,shadeProgram,shaderProgramKoule,locShadeLightType,locShadeLightDir,locShadeLightSpotCutOff;
+    private int locTempKoule , locViewKoule,locProjectionKoule,locDeformKoule ;
     private int locSsaoProjection,locSsaoView;
-    private int locShadeView,locShadeLightPos,locShadeCameraPos;
+    private int locShadeView,locShadeLightPos,locShadeCameraPos,locShadeSvetloADS;
     private Camera camera;
     private Camera cameraLight;
     private Mat4 projection;
@@ -40,6 +38,7 @@ public class RendererSSAO extends AbstractRenderer {
     private float deformVar = 0f;
     private int switchInt =0;
     private float lightType = 0;
+    private int svetloAmbient=0,svetloDiffuse=0,svetloSpecular=0;
 
     @Override
     public void init() {
@@ -50,19 +49,12 @@ public class RendererSSAO extends AbstractRenderer {
 
         textRenderer = new OGLTextRenderer(LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
 
-        shaderProgramObjekt = ShaderUtils.loadProgram("/SSAO/objekt");
         shaderProgramKoule = ShaderUtils.loadProgram("/SSAO/koule");
         shaderProgramSSAO = ShaderUtils.loadProgram("/SSAO/ssao");
         shaderProgramSun = ShaderUtils.loadProgram("/SSAO/objSun");
         shadeProgram = ShaderUtils.loadProgram("/SSAO/shade");
 
-        locTempObjekt = glGetUniformLocation(shaderProgramKoule, "temp");
-        textureObjekt = glGetUniformLocation(shaderProgramKoule, "texture1");
-        locViewObjekt = glGetUniformLocation(shaderProgramKoule, "view");
-        locProjectionObjekt = glGetUniformLocation(shaderProgramKoule, "projection");
-
         locTempKoule = glGetUniformLocation(shaderProgramKoule, "temp");
-        textureKoule = glGetUniformLocation(shaderProgramKoule, "texture1");
         locViewKoule = glGetUniformLocation(shaderProgramKoule, "view");
         locProjectionKoule = glGetUniformLocation(shaderProgramKoule, "projection");
         locDeformKoule = glGetUniformLocation(shaderProgramKoule, "deformVar");
@@ -76,6 +68,7 @@ public class RendererSSAO extends AbstractRenderer {
         locShadeLightType = glGetUniformLocation(shadeProgram, "lightType");
         locShadeLightSpotCutOff = glGetUniformLocation(shadeProgram, "lightSpotCutOff");
         locShadeLightDir = glGetUniformLocation(shadeProgram, "lightDir");
+        locShadeSvetloADS = glGetUniformLocation(shadeProgram, "svetloADS");
 
         //locViewDuck = glGetUniformLocation(shaderProgramDuck, "view");
         //locProjectionDuck = glGetUniformLocation(shaderProgramDuck, "projection");
@@ -127,7 +120,7 @@ public class RendererSSAO extends AbstractRenderer {
 //        projection = new Mat4OrthoRH(10, 7, 1, 20);
 
         try {
-            texture1 = new OGLTexture2D("./textures/testTexture.jpg");
+            texture1 = new OGLTexture2D("./textures/mramor2.jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -173,7 +166,7 @@ public class RendererSSAO extends AbstractRenderer {
         glClearColor(0.0f, 0.1f, 0.0f, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        deformVar=(deformVar+0.025f)%10;
+        deformVar=(deformVar+0.025f)%((float) Math.PI*4);
         glUniformMatrix4fv(locViewKoule, false, camera.getViewMatrix().floatArray());
         glUniformMatrix4fv(locProjectionKoule, false, projection.floatArray());
         glUniform1f(locDeformKoule, deformVar);
@@ -212,6 +205,10 @@ public class RendererSSAO extends AbstractRenderer {
                 buffersStrip.draw(GL_POINTS, shaderProgramKoule);
                 break;
         }
+        glUniform1f(locTempKoule, 7.0f);
+        buffersElephant.draw(modelElephant.getTopology(), shaderProgramKoule);
+        glUniform1f(locTempKoule, 8.0f);
+        buffersDuck.draw(modelDuck.getTopology(), shaderProgramKoule);
     }
 
     private void renderSSAO(){
@@ -251,6 +248,8 @@ public class RendererSSAO extends AbstractRenderer {
         glUniform3fv(locShadeCameraPos, ToFloatArray.convert(camera.getPosition()));
         glUniform3fv(locShadeLightPos, ToFloatArray.convert(cameraLight.getPosition()));
         glUniformMatrix4fv(locShadeView, false, camera.getViewMatrix().floatArray());
+        Point3D svetlo = new Point3D(svetloAmbient,svetloDiffuse,svetloSpecular);
+        glUniform3fv(locShadeSvetloADS,ToFloatArray.convert(svetlo));
 
         quad.draw(GL_TRIANGLES, shadeProgram);
     }
@@ -289,7 +288,7 @@ public class RendererSSAO extends AbstractRenderer {
 
     @Override
     public GLFWWindowSizeCallback getWsCallback() {
-        return windowResCallback; // FIXME
+        return windowResCallback;
     }
 
     @Override
@@ -381,6 +380,15 @@ public class RendererSSAO extends AbstractRenderer {
                         break;
                     case GLFW_KEY_V :
                         lightSpotCutOff =((lightSpotCutOff- 0.002f)+1)%1;
+                        break;
+                    case GLFW_KEY_C :
+                        svetloSpecular=(svetloSpecular+1)%2;
+                        break;
+                    case GLFW_KEY_X:
+                        svetloDiffuse=(svetloDiffuse+1)%2;
+                        break;
+                    case GLFW_KEY_Z :
+                        svetloAmbient=(svetloAmbient+1)%2;
                         break;
                 }
             }

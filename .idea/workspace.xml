@@ -2,20 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6829f3f-ed8b-4a41-baca-17a259ea46a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/koule.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/koule.vert" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/objSun.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/objSun.vert" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/objekt.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/objekt.vert" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/ssao.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shaders/SSAO/ssao.vert" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/QuadFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/RandomTextureGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/reseni/QuadFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/reseni/RandomTextureGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/textures/mosaic.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.frag" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/objekt.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/objekt.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/shade.frag" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/shade.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/koule.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/koule.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/koule.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/koule.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/objekt.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/objekt.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/shade.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/shade.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lwjglutils/OGLModelOBJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwjglutils/OGLModelOBJ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,25 +43,25 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/shaders/SSAO" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res/textures" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\res\textures" />
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders\SSAO" />
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\src\main\reseni" />
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\src\main" />
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders\twoObjects" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="main.reseni" />
       <recent name="main" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders\SSAO" />
-      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\src\main\reseni" />
-      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\src\main" />
-      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders\twoObjects" />
-      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders\refrector" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaProgramko\PGRF3-muj\PGRF3\shaders" />
     </key>
   </component>
   <component name="RunManager" selected="Application.RendererSSAO">
@@ -165,38 +168,38 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="986" y="441" key="FileChooserDialogImpl/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605096861326" />
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1605925447561">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom" timestamp="1605971587364">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605925447561" />
-    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1605925447561">
+    <state width="2517" height="401" key="GridCell.Tab.0.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605971587364" />
+    <state width="2517" height="401" key="GridCell.Tab.0.center" timestamp="1605971587363">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605925447561" />
-    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1605925447561">
+    <state width="2517" height="401" key="GridCell.Tab.0.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605971587363" />
+    <state width="2517" height="401" key="GridCell.Tab.0.left" timestamp="1605971587363">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605925447561" />
-    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1605925447561">
+    <state width="2517" height="401" key="GridCell.Tab.0.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605971587363" />
+    <state width="2517" height="401" key="GridCell.Tab.0.right" timestamp="1605971587364">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605925447561" />
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605915138291">
+    <state width="2517" height="401" key="GridCell.Tab.0.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605971587364" />
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom" timestamp="1605926069150">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605915138291" />
-    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605915138291">
+    <state width="2517" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605926069150" />
+    <state width="2517" height="492" key="GridCell.Tab.1.center" timestamp="1605926069149">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605915138291" />
-    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605915138291">
+    <state width="2517" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605926069149" />
+    <state width="2517" height="492" key="GridCell.Tab.1.left" timestamp="1605926069149">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605915138291" />
-    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605915138291">
+    <state width="2517" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605926069149" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right" timestamp="1605926069149">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605915138291" />
+    <state width="2517" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/-1920.145.1920.1040@0.0.2560.1400" timestamp="1605926069149" />
     <state x="1069" y="402" key="RollbackChangesDialog" timestamp="1605563170471">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

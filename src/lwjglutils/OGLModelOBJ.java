@@ -283,7 +283,7 @@ private int topology;
 		
 		if (verticesBuf != null) {
 			OGLBuffers.Attrib[] attributesPos = {
-					new OGLBuffers.Attrib("inPosition", 4),
+					new OGLBuffers.Attrib("inPosition3D", 4),
 			};
 			float[] floatArray = new float[verticesBuf.limit()];
 			verticesBuf.get(floatArray);

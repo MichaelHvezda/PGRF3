@@ -35,7 +35,7 @@ vec3 rotateXZ(vec3 pos,float oto){
 
 void main() {
     if(temp==0){
-        vec3 position = inPosition*0.025;
+        vec3 position = inPosition*0.0015;
         position = rotateYZ(position,otoceni);
         position = rotateXY(position,otoceni);
         positionOut = vec4(position,1);

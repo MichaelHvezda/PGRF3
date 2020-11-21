@@ -1,5 +1,6 @@
 #version 450
 in vec2 inPosition; // input from the vertex buffer
+in vec3 inPosition3D; // input from the vertex buffer
 in vec2 inTexCoord; // input from the vertex buffer
 //in vec3 inNormal; // input from the vertex buffer
 
@@ -124,8 +125,26 @@ void main() {
         //texCoord = inPosition;
         //vec2 position = inPosition * 2 - 1;
         vec3 position3d = vec3(position,0) ;
-        position3d = position3d +vec3(0,0,-5);
+        position3d = position3d +vec3(0,0,-2);
         positionOut = vec4(position3d,1);
         gl_Position = projection * view * vec4(position3d, 1.0);
+    }
+    if(temp==7){
+        vec3 position = inPosition3D*0.005;
+        position = rotateYZ(position,PI);
+        position = rotateXY(position,PI);
+        position = position + vec3(1,1,0);
+        positionOut = vec4(position,1);
+        texCoord = inTexCoord;
+        gl_Position = projection * view * positionOut;
+    }
+    if(temp==8){
+        vec3 position = inPosition3D*0.0015;
+        position = rotateYZ(position,PI/2);
+        position = rotateXY(position,deformVar);
+        position = vec3(position.x + 2,position.y,position.z);
+        positionOut = vec4(position,1);
+        texCoord = inTexCoord;
+        gl_Position = projection * view * positionOut;
     }
 }

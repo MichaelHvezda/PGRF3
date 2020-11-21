@@ -16,6 +16,9 @@ uniform vec3 lightDir;
 uniform float lightSpotCutOff;
 uniform float lightType;
 
+uniform vec3 svetloADS;
+
+
 void main() {
     if(lightType==0){
         vec3 position = texture(positionTexture, texCoord).xyz;
@@ -39,6 +42,15 @@ void main() {
             vec4 specular = vec4(cosBPow*vec3(1), 1.0);
 
             float utlum=1;
+            if(svetloADS.x==1){
+                ambient = vec4(0);
+            }
+            if(svetloADS.y==1){
+                diffuse = vec4(0);
+            }
+            if(svetloADS.z==1){
+                specular = vec4(0);
+            }
 
             vec4 finalColor = ambient + (diffuse + specular)*utlum;
             vec4 textureColor = color;
@@ -46,6 +58,9 @@ void main() {
             outColor = mix(ambient,finalColor,blend) * textureColor;
         }else{
             vec4 ambient = vec4(vec3(0.2), 1.0);
+            if(svetloADS.x==1){
+                ambient = vec4(0);
+            }
             vec4 textureColor = vec4(0.1,0.1,0.1, 1.0);
             outColor = ambient * textureColor;
         }
@@ -66,6 +81,16 @@ void main() {
         float cosB = max(0, dot(camera, normalize(mirrLight)));
         float cosBPow = pow(cosB,32);
         vec4 specular = vec4(cosBPow*vec3(1), 1.0);
+
+        if(svetloADS.x==1){
+            ambient = vec4(0);
+        }
+        if(svetloADS.y==1){
+            diffuse = vec4(0);
+        }
+        if(svetloADS.z==1){
+            specular = vec4(0);
+        }
 
         vec4 finalColor = ambient + diffuse + specular;
 
