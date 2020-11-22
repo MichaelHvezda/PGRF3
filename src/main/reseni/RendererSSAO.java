@@ -21,8 +21,8 @@ public class RendererSSAO extends AbstractRenderer {
     private double otoceni =0.01;
 
     private int locViewSun, locProjectionSun, shaderProgramSun, locLightPosSun,locLightDirSun, locLightSpotCutOffSun,locLightTypeSun;
-    private int shaderProgramSSAO,shadeProgram,shaderProgramKoule,locShadeLightType,locShadeLightDir,locShadeLightSpotCutOff;
-    private int locTempKoule , locViewKoule,locProjectionKoule,locDeformKoule ;
+    private int shaderProgramSSAO,shadeProgram, shaderProgramObjekt,locShadeLightType,locShadeLightDir,locShadeLightSpotCutOff;
+    private int locTempObjekt, locViewObjekt, locProjectionObjekt, locDeformObjekt;
     private int locSsaoProjection,locSsaoView;
     private int locShadeView,locShadeLightPos,locShadeCameraPos,locShadeSvetloADS;
     private Camera camera;
@@ -32,7 +32,7 @@ public class RendererSSAO extends AbstractRenderer {
     OGLModelOBJ modelElephant,modelDuck;
     private OGLTexture2D texture1,randomTexture;
     private OGLTexture2D.Viewer viewer;
-    private OGLRenderTarget prvniRT, druhyRT, tretiRT;
+    private OGLRenderTarget prvniRT, druhyRT;
     private Vec3D lightDir = new Vec3D(1,0,0);
     private float lightSpotCutOff = 0.95f;
     private float deformVar = 0f;
@@ -49,15 +49,16 @@ public class RendererSSAO extends AbstractRenderer {
 
         textRenderer = new OGLTextRenderer(LwjglWindow.WIDTH, LwjglWindow.HEIGHT);
 
-        shaderProgramKoule = ShaderUtils.loadProgram("/SSAO/koule");
+        //definice lokaci shaderu
+        shaderProgramObjekt = ShaderUtils.loadProgram("/SSAO/koule");
         shaderProgramSSAO = ShaderUtils.loadProgram("/SSAO/ssao");
         shaderProgramSun = ShaderUtils.loadProgram("/SSAO/objSun");
         shadeProgram = ShaderUtils.loadProgram("/SSAO/shade");
 
-        locTempKoule = glGetUniformLocation(shaderProgramKoule, "temp");
-        locViewKoule = glGetUniformLocation(shaderProgramKoule, "view");
-        locProjectionKoule = glGetUniformLocation(shaderProgramKoule, "projection");
-        locDeformKoule = glGetUniformLocation(shaderProgramKoule, "deformVar");
+        locTempObjekt = glGetUniformLocation(shaderProgramObjekt, "temp");
+        locViewObjekt = glGetUniformLocation(shaderProgramObjekt, "view");
+        locProjectionObjekt = glGetUniformLocation(shaderProgramObjekt, "projection");
+        locDeformObjekt = glGetUniformLocation(shaderProgramObjekt, "deformVar");
 
         locSsaoProjection = glGetUniformLocation(shaderProgramSSAO, "projection");
         locSsaoView = glGetUniformLocation(shaderProgramSSAO, "view");
@@ -70,11 +71,6 @@ public class RendererSSAO extends AbstractRenderer {
         locShadeLightDir = glGetUniformLocation(shadeProgram, "lightDir");
         locShadeSvetloADS = glGetUniformLocation(shadeProgram, "svetloADS");
 
-        //locViewDuck = glGetUniformLocation(shaderProgramDuck, "view");
-        //locProjectionDuck = glGetUniformLocation(shaderProgramDuck, "projection");
-        //locLightPosDuck = glGetUniformLocation(shaderProgramDuck, "lightPos");
-        //locCameraPosDuck = glGetUniformLocation(shaderProgramDuck, "cameraPos");
-
         locViewSun = glGetUniformLocation(shaderProgramSun, "view");
         locProjectionSun = glGetUniformLocation(shaderProgramSun, "projection");
         locLightPosSun = glGetUniformLocation(shaderProgramSun, "lightPos");
@@ -82,27 +78,19 @@ public class RendererSSAO extends AbstractRenderer {
         locLightSpotCutOffSun = glGetUniformLocation(shaderProgramSun, "lightSpotCutOff");
         locLightTypeSun = glGetUniformLocation(shaderProgramSun, "lightType");
 
-
+        //modely a buffery
         modelElephant = new OGLModelOBJ("/obj/ElephantBody.obj");
         buffersElephant = modelElephant.getBuffers();
 
         modelDuck= new OGLModelOBJ("/obj/ducky.obj");
         buffersDuck = modelDuck.getBuffers();
         quad = QuadFactory.getQuad();
-//*
+
         buffers = GridFactory.generateGrid(100,100);
         buffersStrip = GridFactory.generateGridStrip(100,100);
         buffersSun = GridFactory.generateGridStrip(100, 100);
-/*/
-        buffers = GridFactory.generateGrid(4,4);
-        //*/
-//        camera = new Camera(
-//                new Vec3D(6, 6, 5),
-//                5 / 4f * Math.PI,
-//                -1 / 5f * Math.PI,
-//                1,
-//                true
-//        );
+
+        //kamera a projektion matice
         camera = new Camera()
                 .withPosition(new Vec3D(2, 2, 1)) // pozice pozorovatele
                 .withAzimuth(5 / 4f * Math.PI) // otočení do strany o (180+45) stupňů v radiánech
@@ -110,15 +98,9 @@ public class RendererSSAO extends AbstractRenderer {
 
         cameraLight = new Camera().withPosition(new Vec3D(-2, -2, 2));
 
-//        view = new Mat4ViewRH(
-//                new Vec3D(4, 4, 4),
-//                new Vec3D(-1, -1, -1),
-//                new Vec3D(0, 0, 1)
-//        );
-
         projection = new Mat4PerspRH(Math.PI / 3, LwjglWindow.HEIGHT / (float)LwjglWindow.WIDTH, 1, 20);
-//        projection = new Mat4OrthoRH(10, 7, 1, 20);
 
+        //textra
         try {
             texture1 = new OGLTexture2D("./textures/mramor2.jpg");
         } catch (IOException e) {
@@ -126,7 +108,7 @@ public class RendererSSAO extends AbstractRenderer {
         }
 
         viewer = new OGLTexture2D.Viewer();
-
+        //nastaveni render target na velikost obrazovky aby se kvalita udrzela aj pri vzcetseni okna na celou obrazovku
         prvniRT = new OGLRenderTarget(2560, 1440,4);
         druhyRT = new OGLRenderTarget(2560, 1440);
         randomTexture = RandomTextureGenerator.getTexture();
@@ -135,22 +117,28 @@ public class RendererSSAO extends AbstractRenderer {
     @Override
     public void display() {
         glEnable(GL_DEPTH_TEST);
+        //nastaveni prerspektivy a vycisteni obrazovky
         perspective();
         clearAndViewPort();
 
+        // provedeni obrazovych operaci
         renderObjekt();
         renderSSAO();
         renderFinal();
         renderSunPos();
+
+        //nastaveni nové pozice světla
         cameraLight = cameraLight.withPosition(new Vec3D(
                 cameraLight.getPosition().getX()*Math.cos(otoceni)-cameraLight.getPosition().getY()*Math.sin(otoceni),
                 cameraLight.getPosition().getX()*Math.sin(otoceni)+cameraLight.getPosition().getY()*Math.cos(otoceni),
                 cameraLight.getPosition().getZ()
         ));
-        //System.out.println(lightSpotCutOff);
+        //nastaveni vektoru světla aby mířil do pozice 0,0,0
         lightDir = new Vec3D(cameraLight.getPosition().mul(-1));
+        //zmena velikosti na velikos okna
         textRenderer.resize(LwjglWindow.WIDTH,LwjglWindow.HEIGHT);
 
+        //vykresleni a popis scen ktere vzniknou behem obrazovych operaci
         if(!debug){
             viewer.view(prvniRT.getColorTexture(0),-1,0,0.5);
             viewer.view(prvniRT.getColorTexture(1),-1, -0.5, 0.5);
@@ -167,63 +155,67 @@ public class RendererSSAO extends AbstractRenderer {
             textRenderer.addStr2D( (int)(LwjglWindow.WIDTH*(1f/4f)), (int)(LwjglWindow.HEIGHT*(4f/4f)), "Hloubka");
 
         }
+
+        //text popisu a promenych
         textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 3, camera.getPosition().toString() + " azimut: "+ camera.getAzimuth() + " zenit: "+ camera.getZenith());
         textRenderer.addStr2D(LwjglWindow.WIDTH - 500, LwjglWindow.HEIGHT - 15, "refrektor " + ((1-lightSpotCutOff)*100)+" %");
         textRenderer.addStr2D( 10, 25, "Camera [WASD QE], Perspektive [P], Mod gridu [M] , Typ světla - Reflektor/Vsestrane [L], Uhel svetla [B- V+], Debug [G], Ambient [Y], Diffuse [X], Spekular [C]");
     }
 
+    //zakresleni objektu do sceny
     private void renderObjekt(){
-        glUseProgram(shaderProgramKoule);
+        glUseProgram(shaderProgramObjekt);
 
         prvniRT.bind();
         glClearColor(0.0f, 0.1f, 0.0f, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         deformVar=(deformVar+0.025f)%((float) Math.PI*4);
-        glUniformMatrix4fv(locViewKoule, false, camera.getViewMatrix().floatArray());
-        glUniformMatrix4fv(locProjectionKoule, false, projection.floatArray());
-        glUniform1f(locDeformKoule, deformVar);
+        glUniformMatrix4fv(locViewObjekt, false, camera.getViewMatrix().floatArray());
+        glUniformMatrix4fv(locProjectionObjekt, false, projection.floatArray());
+        glUniform1f(locDeformObjekt, deformVar);
 
-        texture1.bind(shaderProgramKoule, "texture1", 0);
-        glUniform1f(locTempKoule, 0.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgramKoule);
-        glUniform1f(locTempKoule, 1.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgramKoule);
-        glUniform1f(locTempKoule, 2.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgramKoule);
-        glUniform1f(locTempKoule, 3.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgramKoule);
-        glUniform1f(locTempKoule, 4.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgramKoule);
-        glUniform1f(locTempKoule, 5.0f);
-        buffers.draw(GL_TRIANGLES, shaderProgramKoule);
-        glUniform1f(locTempKoule, 6.0f);
+        texture1.bind(shaderProgramObjekt, "texture1", 0);
+        glUniform1f(locTempObjekt, 0.0f);
+        buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 1.0f);
+        buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 2.0f);
+        buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 3.0f);
+        buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 4.0f);
+        buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 5.0f);
+        buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 6.0f);
         switch (switchInt){
             case 0:
-                buffers.draw(GL_TRIANGLES, shaderProgramKoule);
+                buffers.draw(GL_TRIANGLES, shaderProgramObjekt);
                 break;
             case 1:
-                buffers.draw(GL_LINES, shaderProgramKoule);
+                buffers.draw(GL_LINES, shaderProgramObjekt);
                 break;
             case 2:
-                buffers.draw(GL_POINTS, shaderProgramKoule);
+                buffers.draw(GL_POINTS, shaderProgramObjekt);
                 break;
             case 3:
-                buffersStrip.draw(GL_TRIANGLE_STRIP, shaderProgramKoule);
+                buffersStrip.draw(GL_TRIANGLE_STRIP, shaderProgramObjekt);
                 break;
             case 4:
-                buffersStrip.draw(GL_LINES, shaderProgramKoule);
+                buffersStrip.draw(GL_LINES, shaderProgramObjekt);
                 break;
             case 5:
-                buffersStrip.draw(GL_POINTS, shaderProgramKoule);
+                buffersStrip.draw(GL_POINTS, shaderProgramObjekt);
                 break;
         }
-        glUniform1f(locTempKoule, 7.0f);
-        buffersElephant.draw(modelElephant.getTopology(), shaderProgramKoule);
-        glUniform1f(locTempKoule, 8.0f);
-        buffersDuck.draw(modelDuck.getTopology(), shaderProgramKoule);
+        glUniform1f(locTempObjekt, 7.0f);
+        buffersElephant.draw(modelElephant.getTopology(), shaderProgramObjekt);
+        glUniform1f(locTempObjekt, 8.0f);
+        buffersDuck.draw(modelDuck.getTopology(), shaderProgramObjekt);
     }
 
+    //vypocet ssao
     private void renderSSAO(){
         glUseProgram(shaderProgramSSAO);
         druhyRT.bind();
@@ -243,6 +235,7 @@ public class RendererSSAO extends AbstractRenderer {
         quad.draw(GL_TRIANGLES, shaderProgramSSAO);
     }
 
+    //finalni vykresleni sceny
     private void renderFinal() {
         glUseProgram(shadeProgram);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -267,6 +260,7 @@ public class RendererSSAO extends AbstractRenderer {
         quad.draw(GL_TRIANGLES, shadeProgram);
     }
 
+    //vykresleni pozice svetla
     private void renderSunPos(){
         glUseProgram(shaderProgramSun);
 
@@ -280,6 +274,7 @@ public class RendererSSAO extends AbstractRenderer {
         buffersSun.draw(GL_TRIANGLE_STRIP, shaderProgramSun);
     }
 
+    //vycisteni sceny
     public void clearAndViewPort(){
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

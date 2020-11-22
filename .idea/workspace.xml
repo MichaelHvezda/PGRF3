@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c6829f3f-ed8b-4a41-baca-17a259ea46a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.vert" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/SSAO/koule.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PGRF3/main/reseni/RendererSSAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/koule.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/koule.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shaders/SSAO/koule.vert" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/koule.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lwjglutils/OGLTextRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/lwjglutils/OGLTextRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/SSAO/shade.frag" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/SSAO/shade.frag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/reseni/RendererSSAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

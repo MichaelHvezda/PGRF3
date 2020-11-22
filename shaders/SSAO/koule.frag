@@ -17,6 +17,7 @@ uniform float temp;
 void main() {
         outColor0 = vec4(positionOut.xyz,1);
         outColor1 = texture(texture1,texCoord);
+        //zapsani barvy nebo textury
         if(temp==7 ||temp==8 ){
                 outColor2 = texture(texture1,texCoord);
         }else{

@@ -20,12 +20,15 @@ uniform vec3 svetloADS;
 
 
 void main() {
+    //normalni svetle nebo refrektor
     if(lightType==0){
+        //vypocet pozice
         vec3 position = texture(positionTexture, texCoord).xyz;
         vec3 spotDirection = lightPosition - position;
         float spotEffect = max(dot(normalize(-lightDir),normalize(spotDirection)),0);
         if(spotEffect>lightSpotCutOff){
 
+            //vypocet slozek svetla
             vec4 color = texture(imageColor,texCoord);
             vec3 normal = cross(dFdxFine(position),dFdyFine( position));
             float AO = texture(ssaoTexture, texCoord).x;
@@ -42,8 +45,10 @@ void main() {
             vec4 specular = vec4(cosBPow*vec3(1), 1.0);
 
             float ligthLenght = length(lightPosition - position)/5;
+            //vypocet utlumu
             float utlum=1.0/(1+ligthLenght+ligthLenght*ligthLenght);
 
+            //moznost vypnuti a zapnuti jednotlivych slozek svetla
             if(svetloADS.x==1){
                 ambient = vec4(0);
             }
@@ -56,6 +61,7 @@ void main() {
 
             vec4 finalColor = ambient + (diffuse + specular)*utlum;
             vec4 textureColor = color;
+            //rozmazani svetla
             float blend = clamp((spotEffect-lightSpotCutOff)/(1-lightSpotCutOff),0.0,1.0);
             outColor = mix(ambient,finalColor,blend) * textureColor;
         }else{
@@ -67,6 +73,7 @@ void main() {
             outColor = ambient * textureColor;
         }
     }else{
+        //vypocet slozek svetla
         vec3 position = texture(positionTexture, texCoord).xyz;
         vec4 color = texture(imageColor,texCoord);
         vec3 normal = cross(dFdxFine(position),dFdyFine( position));
@@ -84,6 +91,7 @@ void main() {
         float cosBPow = pow(cosB,32);
         vec4 specular = vec4(cosBPow*vec3(1), 1.0);
 
+        //moznost vypnuti a zapnuti jednotlivych slozek svetla
         if(svetloADS.x==1){
             ambient = vec4(0);
         }

@@ -2,7 +2,6 @@
 in vec2 inPosition; // input from the vertex buffer
 in vec3 inPosition3D; // input from the vertex buffer
 in vec2 inTexCoord; // input from the vertex buffer
-//in vec3 inNormal; // input from the vertex buffer
 
 out vec4 positionOut; // output from this shader to the next pipleline stage
 out vec2 texCoord;
@@ -26,8 +25,7 @@ vec3 getKoule(vec3 pos) {
     return vec3(x, y, z);
 }
 vec3 getKruh(vec3 pos) {
-    //float az = pos.x +1;// souřadnice z gridu je v <-1;1> a chceme v rozsahu <-PI;PI>
-    float ze = pos.y * PI+ PI;// souřadnice z gridu je v <-1;1> a chceme v rozsahu <-PI/2;PI/2>
+    float ze = pos.y * PI+ PI;
     float r = pos.x;
 
     float x = r * cos(ze);
@@ -38,8 +36,8 @@ vec3 getKruh(vec3 pos) {
 }
 
 vec3 getValec(vec3 pos) {
-    float az = pos.x +1;// souřadnice z gridu je v <-1;1> a chceme v rozsahu <-PI;PI>
-    float ze = pos.y * PI+ PI;// souřadnice z gridu je v <-1;1> a chceme v rozsahu <-PI/2;PI/2>
+    float az = pos.x +1;
+    float ze = pos.y * PI+ PI;
     float r = pos.z;
 
     float x = r * cos(ze);
@@ -73,6 +71,7 @@ vec3 rotateXZ(vec3 pos,float oto){
 void main() {
     texCoord = inPosition;
     vec2 position = inPosition * 2 - 1;
+    //vykresleni objektu do sceny
     if(temp==0){
         vec3 position3d = vec3(position.x,position.y,1)*vec3(sin(position.y)+cos(position.x),sin(position.y),cos(position.x));
         position3d = getKruh(position3d);
@@ -122,8 +121,6 @@ void main() {
         gl_Position = projection * view * vec4(position3d, 1.0);
     }
     if(temp==6){
-        //texCoord = inPosition;
-        //vec2 position = inPosition * 2 - 1;
         vec3 position3d = vec3(position,0) ;
         position3d = position3d +vec3(0,0,-1);
         positionOut = vec4(position3d,1);
